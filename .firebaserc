@@ -1,5 +1,5 @@
 {
   "projects": {
-    "default": "yamadashi-test"
+    "default": "yamadashi-firestore-sandbox"
   }
 }

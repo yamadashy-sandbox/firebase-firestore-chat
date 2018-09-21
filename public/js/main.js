@@ -1,7 +1,7 @@
 class ChatManager {
     constructor () {
         const firebaseApp = firebase.initializeApp({
-            projectId: "yamadashi-test",
+            projectId: "yamadashi-firestore-sandbox",
         });
         const firestore = firebaseApp.firestore()
         firestore.settings({
@@ -15,7 +15,7 @@ class ChatManager {
     _setEventHandler() {
         $('.chat-form').submit(this.onSubmitForm.bind(this));
 
-        this.chatsRef.orderBy("timestamp").onSnapshot(function (snapshot) {
+        this.chatsRef.orderBy("createdAt").onSnapshot(function (snapshot) {
             snapshot.docChanges().forEach(change => {
                 if (change.type === "added") {
                     const chat = change.doc.data();
@@ -36,7 +36,7 @@ class ChatManager {
         this.chatsRef.add({
             author: author || "名無し",
             content: content,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
 
         $('.chat-content-input').val('');
